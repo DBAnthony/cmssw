@@ -117,7 +117,7 @@ private:
 //
 L1TCaloLayer1::L1TCaloLayer1(const edm::ParameterSet& iConfig) :
   ecalTPSource(consumes<EcalTrigPrimDigiCollection>(iConfig.getParameter<edm::InputTag>("ecalToken"))),
-  hcalTPSource(consumes<HcalTrigPrimDigiCollection>(iConfig.getParameter<edm::InputTag>("hcalToken"))),
+  hcalTPSource(consumes<HcalUpgradeTrigPrimDigiCollection>(iConfig.getParameter<edm::InputTag>("hcalToken"))),
   towerPutToken{produces<CaloTowerBxCollection>()},
   regionPutToken{produces<L1CaloRegionCollection>()},
   ePhiMap(72*2, 0),
@@ -170,7 +170,7 @@ L1TCaloLayer1::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   edm::Handle<EcalTrigPrimDigiCollection> ecalTPs;
   iEvent.getByToken(ecalTPSource, ecalTPs);
-  edm::Handle<HcalTrigPrimDigiCollection> hcalTPs;
+  edm::Handle<HcalUpgradeTrigPrimDigiCollection> hcalTPs;
   iEvent.getByToken(hcalTPSource, hcalTPs);
 
   CaloTowerBxCollection towersColl;

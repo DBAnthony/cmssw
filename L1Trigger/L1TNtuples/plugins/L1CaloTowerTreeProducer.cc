@@ -52,6 +52,7 @@ Implementation:
 
 #include "DataFormats/EcalDigi/interface/EcalDigiCollections.h"
 #include "DataFormats/HcalDigi/interface/HcalDigiCollections.h"
+#include "DataFormats/HcalDigi/interface/HcalUpgradeTriggerPrimitiveDigi.h"
 
 #include "DataFormats/L1TCalorimeter/interface/CaloTower.h"
 #include "DataFormats/L1TCalorimeter/interface/CaloCluster.h"
@@ -93,7 +94,7 @@ private:
 
   // EDM input tags
   edm::EDGetTokenT<EcalTrigPrimDigiCollection> ecalToken_;
-  edm::EDGetTokenT<HcalTrigPrimDigiCollection> hcalToken_;
+  edm::EDGetTokenT<HcalUpgradeTrigPrimDigiCollection> hcalToken_;
   edm::EDGetTokenT<l1t::CaloTowerBxCollection> l1TowerToken_;
   edm::EDGetTokenT<l1t::CaloClusterBxCollection> l1ClusterToken_;
 
@@ -106,7 +107,7 @@ L1CaloTowerTreeProducer::L1CaloTowerTreeProducer(const edm::ParameterSet& iConfi
 {
 
   ecalToken_ = consumes<EcalTrigPrimDigiCollection>(iConfig.getUntrackedParameter<edm::InputTag>("ecalToken"));
-  hcalToken_ = consumes<HcalTrigPrimDigiCollection>(iConfig.getUntrackedParameter<edm::InputTag>("hcalToken"));
+  hcalToken_ = consumes<HcalUpgradeTrigPrimDigiCollection>(iConfig.getUntrackedParameter<edm::InputTag>("hcalToken"));
   l1TowerToken_ = consumes<l1t::CaloTowerBxCollection>(iConfig.getUntrackedParameter<edm::InputTag>("l1TowerToken"));
 
   edm::InputTag clusterTag = iConfig.getUntrackedParameter<edm::InputTag>("l1ClusterToken");
@@ -161,7 +162,7 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
   iSetup.get<CaloTPGRecord>().get(decoder);
 
   edm::Handle<EcalTrigPrimDigiCollection> ecalTPs;
-  edm::Handle<HcalTrigPrimDigiCollection> hcalTPs;
+  edm::Handle<HcalUpgradeTrigPrimDigiCollection> hcalTPs;
 
   iEvent.getByToken(ecalToken_, ecalTPs);
   iEvent.getByToken(hcalToken_, hcalTPs);

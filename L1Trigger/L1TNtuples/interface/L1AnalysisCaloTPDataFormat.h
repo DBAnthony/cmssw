@@ -47,6 +47,14 @@ namespace L1Analysis
     std::vector<float> hcalTPet;
     std::vector<short> hcalTPcompEt;
     std::vector<short> hcalTPfineGrain;
+    std::vector<short> hcalTPnDepths;
+    std::vector<short> hcalTPDepth0;
+    std::vector<short> hcalTPDepth1;
+    std::vector<short> hcalTPDepth2;
+    std::vector<short> hcalTPDepth3;
+    std::vector<short> hcalTPDepth4;
+    std::vector<short> hcalTPDepth5;
+    std::vector<short> hcalTPDepth6;
 
     short nECALTP;
     std::vector<short> ecalTPieta;
