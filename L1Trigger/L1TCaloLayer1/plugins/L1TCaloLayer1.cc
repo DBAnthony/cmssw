@@ -74,7 +74,7 @@ private:
   // ----------member data ---------------------------
 
   edm::EDGetTokenT<EcalTrigPrimDigiCollection> ecalTPSource;
-  edm::EDGetTokenT<HcalTrigPrimDigiCollection> hcalTPSource;
+  edm::EDGetTokenT<HcalUpgradeTrigPrimDigiCollection> hcalTPSource;
   edm::EDPutTokenT<CaloTowerBxCollection> towerPutToken;
   edm::EDPutTokenT<L1CaloRegionCollection> regionPutToken;
 
@@ -213,8 +213,10 @@ L1TCaloLayer1::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     else if(absCaloEta <= 41) {
       int caloPhi = hcalTp.id().iphi();
       int et = hcalTp.SOI_compressedEt();
-      bool fg  = hcalTp.t0().fineGrain(0);
-      bool fg2 = hcalTp.t0().fineGrain(1);
+      //int fg  = hcalTp.t0().fineGrain(0);
+      //int fg2 = hcalTp.t0().fineGrain(1);
+      bool fg = 0;
+      bool fg2 = 0;
       if(caloPhi <= 72) {
         UCTTowerIndex t = UCTTowerIndex(caloEta, caloPhi);
         uint32_t featureBits = 0;

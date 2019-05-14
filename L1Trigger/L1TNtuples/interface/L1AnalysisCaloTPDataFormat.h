@@ -26,6 +26,14 @@ namespace L1Analysis
       hcalTPet.clear();
       hcalTPcompEt.clear();
       hcalTPfineGrain.clear();
+      hcalTPnDepths.clear();
+      hcalTPDepth0.clear();
+      hcalTPDepth1.clear();
+      hcalTPDepth2.clear();
+      hcalTPDepth3.clear();
+      hcalTPDepth4.clear();
+      hcalTPDepth5.clear();
+      hcalTPDepth6.clear();
       nECALTP = 0;
       ecalTPieta.clear();
       ecalTPiphi.clear();
