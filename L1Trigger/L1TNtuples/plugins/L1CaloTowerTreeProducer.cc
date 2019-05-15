@@ -216,12 +216,9 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       unsigned short fineGrain = (unsigned short) itr.SOI_fineGrain();
       
       unsigned short nDepths = (unsigned short) itr.getDepthData().size();
-      int Depth0 = (int) itr.getDepthData()[0];
-      if (Depth0 != 0){
-        cout << "ieta: " << ieta << "  Depth0: " << Depth0 << endl;}
-      int Depth1 = itr.getDepthData()[1];
-//      if (Depth1 != 0){
-//        cout << "ieta: " << ieta << "  Depth1: " << Depth1 << endl;}
+      int Depth1 = (int) itr.getDepthData()[1];
+      if (Depth1 != 0){
+        cout << "ieta: " << ieta << "  Depth1: " << Depth1 << endl;}
       int Depth2 = itr.getDepthData()[2];
 //      if (Depth2 != 0){
 //        cout << "ieta: " << ieta << "  Depth2: " << Depth2 << endl;}
@@ -237,16 +234,19 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       int Depth6 = itr.getDepthData()[6];
 //      if (Depth6 != 0){
 //        cout << "ieta: " << ieta << "  Depth6: " << Depth6 << endl;}
+      int Depth7 = itr.getDepthData()[7];
+//      if (Depth7 != 0){
+//        cout << "ieta: " << ieta << "  Depth7: " << Depth7 << endl;}
       
       if (compEt > 0 && (absIeta<29 || ver==1)) {
 	caloTPData_->hcalTPnDepths.push_back( nDepths );
-//	caloTPData_->hcalTPDepth1.push_back( Depth0 );
 //	caloTPData_->hcalTPDepth1.push_back( Depth1 );
 //	caloTPData_->hcalTPDepth2.push_back( Depth2 );
 //	caloTPData_->hcalTPDepth3.push_back( Depth3 );
 //	caloTPData_->hcalTPDepth4.push_back( Depth4 );
 //	caloTPData_->hcalTPDepth5.push_back( Depth5 );
 //	caloTPData_->hcalTPDepth6.push_back( Depth6 );
+//	caloTPData_->hcalTPDepth7.push_back( Depth7 );
 	caloTPData_->hcalTPieta.push_back( ieta );
 	caloTPData_->hcalTPCaliphi.push_back( cal_iphi );
 	caloTPData_->hcalTPiphi.push_back( iphi );
@@ -256,6 +256,7 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
 	caloTPData_->nHCALTP++;
       }
     }
+ cout << "loop ended" << endl;
   }
   else {
     edm::LogWarning("L1TNtuple") << "HCAL TPs not found, branch will not be filled";

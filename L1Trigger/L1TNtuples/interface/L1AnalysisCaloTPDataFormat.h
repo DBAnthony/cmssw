@@ -27,7 +27,7 @@ namespace L1Analysis
       hcalTPcompEt.clear();
       hcalTPfineGrain.clear();
       hcalTPnDepths.clear();
-      hcalTPDepth0.clear();
+      hcalTPDepth7.clear();
       hcalTPDepth1.clear();
       hcalTPDepth2.clear();
       hcalTPDepth3.clear();
@@ -56,7 +56,7 @@ namespace L1Analysis
     std::vector<short> hcalTPcompEt;
     std::vector<short> hcalTPfineGrain;
     std::vector<short> hcalTPnDepths;
-    std::vector<short> hcalTPDepth0;
+    std::vector<short> hcalTPDepth7;
     std::vector<short> hcalTPDepth1;
     std::vector<short> hcalTPDepth2;
     std::vector<short> hcalTPDepth3;
