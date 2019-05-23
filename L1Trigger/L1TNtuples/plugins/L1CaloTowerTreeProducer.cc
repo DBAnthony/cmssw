@@ -216,47 +216,63 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       unsigned short fineGrain = (unsigned short) itr.SOI_fineGrain();
       
       unsigned short nDepths = (unsigned short) itr.getDepthData().size();
+      float et_sum = 0;
+      float tp_energy_ = 0;
+
+      for (const auto& digi: *digis) {
+      	HcalTrigTowerDetId id = digi.id();
+      	id = HcalTrigTowerDetId(id.ieta(), id.iphi(), 1, id.version());
+	tp_energy_ = decoder->hcaletValue(id, digi.SOI_compressedEt());
+        std::vector<int> energy_depth = digi.getDepthData();
+        for (int i = 0; i < static_cast<int>(energy_depth.size()); ++i) {
+          int depth = energy_depth[i];
+          if (depth > 0) {
+	  et_sum += depth;}
+	}
+      }
+
+      float DepthScale = tp_energy_/et_sum;
       
       if (compEt > 0 && (absIeta<29 || ver==1)) {
         if (nDepths > 1){
-	int Depth1 = (int) itr.getDepthData()[1];
-	caloTPData_->hcalTPDepth1.push_back( Depth1 );
+	float Depth1 = (int) itr.getDepthData()[1];
+	caloTPData_->hcalTPDepth1.push_back( Depth1*DepthScale );
         }
         else{caloTPData_->hcalTPDepth1.push_back( 0 );}
 
 	if (nDepths > 2){
-        int Depth2 = (int) itr.getDepthData()[2];
-        caloTPData_->hcalTPDepth2.push_back( Depth2 );
+        float Depth2 = (int) itr.getDepthData()[2];
+        caloTPData_->hcalTPDepth2.push_back( Depth2*DepthScale );
         }
         else{caloTPData_->hcalTPDepth2.push_back( 0 );}
 
 	if (nDepths > 3){
-        int Depth3 = (int) itr.getDepthData()[3];
-        caloTPData_->hcalTPDepth3.push_back( Depth3 );
+        float Depth3 = (int) itr.getDepthData()[3];
+        caloTPData_->hcalTPDepth3.push_back( Depth3*DepthScale );
         }
         else{caloTPData_->hcalTPDepth3.push_back( 0 );}
 
 	if (nDepths > 4){
-        int Depth4 = (int) itr.getDepthData()[4];
-        caloTPData_->hcalTPDepth4.push_back( Depth4 );
+        float Depth4 = (int) itr.getDepthData()[4];
+        caloTPData_->hcalTPDepth4.push_back( Depth4*DepthScale );
         }
         else{caloTPData_->hcalTPDepth4.push_back( 0 );}
 
 	if (nDepths > 5){
-        int Depth5 = (int) itr.getDepthData()[5];
-        caloTPData_->hcalTPDepth5.push_back( Depth5 );
+        float Depth5 = (int) itr.getDepthData()[5];
+        caloTPData_->hcalTPDepth5.push_back( Depth5*DepthScale );
         }
         else{caloTPData_->hcalTPDepth5.push_back( 0 );}
 
 	if (nDepths > 6){
-        int Depth6 = (int) itr.getDepthData()[6];
-        caloTPData_->hcalTPDepth6.push_back( Depth6 );
+        float Depth6 = (int) itr.getDepthData()[6];
+        caloTPData_->hcalTPDepth6.push_back( Depth6*DepthScale );
         }
         else{caloTPData_->hcalTPDepth6.push_back( 0 );}
 
         if (nDepths > 7){
-        int Depth7 = (int) itr.getDepthData()[7];
-        caloTPData_->hcalTPDepth7.push_back( Depth7 );
+        float Depth7 = (int) itr.getDepthData()[7];
+        caloTPData_->hcalTPDepth7.push_back( Depth7*DepthScale );
         }
         else{caloTPData_->hcalTPDepth7.push_back( 0 );}
       
