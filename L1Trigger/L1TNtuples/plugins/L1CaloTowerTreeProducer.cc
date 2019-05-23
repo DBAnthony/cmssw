@@ -199,6 +199,7 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
   
   
   if (hcalTPs.isValid()) {
+    int i = 0;
       
     for ( auto itr : (*hcalTPs.product()) ) {
 
@@ -217,8 +218,13 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       
       unsigned short nDepths = (unsigned short) itr.getDepthData().size();
       int Depth1 = (int) itr.getDepthData()[1];
-      if (Depth1 != 0){
-        cout << "ieta: " << ieta << "  Depth1: " << Depth1 << endl;}
+      i += 1;
+      cout << "i: " << i << endl;
+      if (nDepths > 1){
+	cout << "nDepths:" << nDepths << endl;
+	//if (Depth1 != 0){
+     	  //cout << "ieta: " << ieta << "  Depth1: " << Depth1 << endl;}
+      }
       int Depth2 = itr.getDepthData()[2];
 //      if (Depth2 != 0){
 //        cout << "ieta: " << ieta << "  Depth2: " << Depth2 << endl;}
