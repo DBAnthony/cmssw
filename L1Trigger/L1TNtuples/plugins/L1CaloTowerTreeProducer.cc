@@ -199,7 +199,6 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
   
   
   if (hcalTPs.isValid()) {
-    int i = 0;
       
     for ( auto itr : (*hcalTPs.product()) ) {
 
@@ -217,42 +216,51 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       unsigned short fineGrain = (unsigned short) itr.SOI_fineGrain();
       
       unsigned short nDepths = (unsigned short) itr.getDepthData().size();
-      int Depth1 = (int) itr.getDepthData()[1];
-      i += 1;
-      cout << "i: " << i << endl;
-      if (nDepths > 1){
-	cout << "nDepths:" << nDepths << endl;
-	//if (Depth1 != 0){
-     	  //cout << "ieta: " << ieta << "  Depth1: " << Depth1 << endl;}
-      }
-      int Depth2 = itr.getDepthData()[2];
-//      if (Depth2 != 0){
-//        cout << "ieta: " << ieta << "  Depth2: " << Depth2 << endl;}
-      int Depth3 = itr.getDepthData()[3];
-//      if (Depth3 != 0){
-//        cout << "ieta: " << ieta << "  Depth3: " << Depth3 << endl;}
-      int Depth4 = itr.getDepthData()[4];
-//      if (Depth4 != 0){
-//        cout << "ieta: " << ieta << "  Depth4: " << Depth4 << endl;}
-      int Depth5 = itr.getDepthData()[5];
-//      if (Depth5 != 0){
-//        cout << "ieta: " << ieta << "  Depth5: " << Depth5 << endl;}
-      int Depth6 = itr.getDepthData()[6];
-//      if (Depth6 != 0){
-//        cout << "ieta: " << ieta << "  Depth6: " << Depth6 << endl;}
-      int Depth7 = itr.getDepthData()[7];
-//      if (Depth7 != 0){
-//        cout << "ieta: " << ieta << "  Depth7: " << Depth7 << endl;}
       
       if (compEt > 0 && (absIeta<29 || ver==1)) {
+        if (nDepths > 1){
+	int Depth1 = (int) itr.getDepthData()[1];
+	caloTPData_->hcalTPDepth1.push_back( Depth1 );
+        }
+        else{caloTPData_->hcalTPDepth1.push_back( 0 );}
+
+	if (nDepths > 2){
+        int Depth2 = (int) itr.getDepthData()[2];
+        caloTPData_->hcalTPDepth2.push_back( Depth2 );
+        }
+        else{caloTPData_->hcalTPDepth2.push_back( 0 );}
+
+	if (nDepths > 3){
+        int Depth3 = (int) itr.getDepthData()[3];
+        caloTPData_->hcalTPDepth3.push_back( Depth3 );
+        }
+        else{caloTPData_->hcalTPDepth3.push_back( 0 );}
+
+	if (nDepths > 4){
+        int Depth4 = (int) itr.getDepthData()[4];
+        caloTPData_->hcalTPDepth4.push_back( Depth4 );
+        }
+        else{caloTPData_->hcalTPDepth4.push_back( 0 );}
+
+	if (nDepths > 5){
+        int Depth5 = (int) itr.getDepthData()[5];
+        caloTPData_->hcalTPDepth5.push_back( Depth5 );
+        }
+        else{caloTPData_->hcalTPDepth5.push_back( 0 );}
+
+	if (nDepths > 6){
+        int Depth6 = (int) itr.getDepthData()[6];
+        caloTPData_->hcalTPDepth6.push_back( Depth6 );
+        }
+        else{caloTPData_->hcalTPDepth6.push_back( 0 );}
+
+        if (nDepths > 7){
+        int Depth7 = (int) itr.getDepthData()[7];
+        caloTPData_->hcalTPDepth7.push_back( Depth7 );
+        }
+        else{caloTPData_->hcalTPDepth7.push_back( 0 );}
+      
 	caloTPData_->hcalTPnDepths.push_back( nDepths );
-//	caloTPData_->hcalTPDepth1.push_back( Depth1 );
-//	caloTPData_->hcalTPDepth2.push_back( Depth2 );
-//	caloTPData_->hcalTPDepth3.push_back( Depth3 );
-//	caloTPData_->hcalTPDepth4.push_back( Depth4 );
-//	caloTPData_->hcalTPDepth5.push_back( Depth5 );
-//	caloTPData_->hcalTPDepth6.push_back( Depth6 );
-//	caloTPData_->hcalTPDepth7.push_back( Depth7 );
 	caloTPData_->hcalTPieta.push_back( ieta );
 	caloTPData_->hcalTPCaliphi.push_back( cal_iphi );
 	caloTPData_->hcalTPiphi.push_back( iphi );
@@ -262,7 +270,6 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
 	caloTPData_->nHCALTP++;
       }
     }
- cout << "loop ended" << endl;
   }
   else {
     edm::LogWarning("L1TNtuple") << "HCAL TPs not found, branch will not be filled";
