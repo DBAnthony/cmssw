@@ -217,30 +217,27 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
       
       unsigned short nDepths = (unsigned short) itr.getDepthData().size();
       float et_sum = 0;
-      float tp_energy_ = 0;
-	
-      for (const auto& hcalTP: *hcalTPs) {
-      	HcalTrigTowerDetId id = hcalTP.id();
-      	id = HcalTrigTowerDetId(id.ieta(), id.iphi(), 1, id.version());
-	tp_energy_ = decoder->hcaletValue(id, hcalTP.SOI_compressedEt());
-        std::vector<int> energy_depth = hcalTP.getDepthData();
-        for (int i = 0; i < static_cast<int>(energy_depth.size()); ++i) {
-          int depth = energy_depth[i];
-          if (depth > 0) {
-	  et_sum += depth;}
-	}
+ 	
+      HcalTrigTowerDetId id = itr.id();
+      id = HcalTrigTowerDetId(id.ieta(), id.iphi(), 1, id.version());
+      std::vector<int> energy_depth = itr.getDepthData();
+      for (int i = 0; i < static_cast<int>(energy_depth.size()); ++i) {
+        int depth = energy_depth[i];
+        if (depth > 0) {
+	et_sum += depth;}
       }
 
-      float DepthScale = tp_energy_/et_sum;
+      float tp_energy_ = decoder->hcaletValue(id, itr.SOI_compressedEt());
+      float DepthScale = 0;
+      if (et_sum > 0){
+      	DepthScale = tp_energy_/et_sum;
+	}
  
       if (compEt > 0 && (absIeta<29 || ver==1)) {
-	if (nDepths > 1){
-	cout << "tp_energy_: " << tp_energy_ << "et_sum: " << et_sum << endl;
-        cout << "DepthScale: " << DepthScale << endl;
-	}
         if (nDepths > 1){
 	float Depth1 = (int) itr.getDepthData()[1];
 	caloTPData_->hcalTPDepth1.push_back( Depth1*DepthScale );
+	cout << "Depth1*scale: " << Depth1*DepthScale << endl;
         }
         else{caloTPData_->hcalTPDepth1.push_back( 0 );}
 
