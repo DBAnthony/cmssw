@@ -225,59 +225,61 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
         int depth = energy_depth[i];
         if (depth > 0) {
 	et_sum += depth;}
-      }
-
+      }	
       float tp_energy_ = decoder->hcaletValue(id, itr.SOI_compressedEt());
       float DepthScale = 0;
       if (et_sum > 0){
       	DepthScale = tp_energy_/et_sum;
-	}
- 
+      }
       if (compEt > 0 && (absIeta<29 || ver==1)) {
-        if (nDepths > 1){
-	float Depth1 = (int) itr.getDepthData()[1];
-	caloTPData_->hcalTPDepth1.push_back( Depth1*DepthScale );
-	cout << "Depth1*scale: " << Depth1*DepthScale << endl;
-        }
-        else{caloTPData_->hcalTPDepth1.push_back( 0 );}
+         if (nDepths > 1){
+	 float Depth1 = (float) energy_depth[1];
+	 caloTPData_->hcalTPDepth1.push_back( Depth1*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth1.push_back( 0 );}
 
-	if (nDepths > 2){
-        float Depth2 = (int) itr.getDepthData()[2];
-        caloTPData_->hcalTPDepth2.push_back( Depth2*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth2.push_back( 0 );}
+	 if (nDepths > 2){
+         float Depth2 = (float) energy_depth[2];
+         caloTPData_->hcalTPDepth2.push_back( Depth2*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth2.push_back( 0 );}
 
-	if (nDepths > 3){
-        float Depth3 = (int) itr.getDepthData()[3];
-        caloTPData_->hcalTPDepth3.push_back( Depth3*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth3.push_back( 0 );}
+	 if (nDepths > 3){
+         float Depth3 = (float) energy_depth[3];
+         caloTPData_->hcalTPDepth3.push_back( Depth3*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth3.push_back( 0 );}
 
-	if (nDepths > 4){
-        float Depth4 = (int) itr.getDepthData()[4];
-        caloTPData_->hcalTPDepth4.push_back( Depth4*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth4.push_back( 0 );}
+	 if (nDepths > 4){
+         float Depth4 = (float) energy_depth[4];
+         caloTPData_->hcalTPDepth4.push_back( Depth4*DepthScale );
 
-	if (nDepths > 5){
-        float Depth5 = (int) itr.getDepthData()[5];
-        caloTPData_->hcalTPDepth5.push_back( Depth5*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth5.push_back( 0 );}
+         }
+         else{caloTPData_->hcalTPDepth4.push_back( 0 );}
+	 if (nDepths > 5){
+         float Depth5 = (float) energy_depth[5];
+         caloTPData_->hcalTPDepth5.push_back( Depth5*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth5.push_back( 0 );}
 
-	if (nDepths > 6){
-        float Depth6 = (int) itr.getDepthData()[6];
-        caloTPData_->hcalTPDepth6.push_back( Depth6*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth6.push_back( 0 );}
+	 if (nDepths > 6){
+         float Depth6 = (float) energy_depth[6];
+         caloTPData_->hcalTPDepth6.push_back( Depth6*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth6.push_back( 0 );}
 
-        if (nDepths > 7){
-        float Depth7 = (int) itr.getDepthData()[7];
-        caloTPData_->hcalTPDepth7.push_back( Depth7*DepthScale );
-        }
-        else{caloTPData_->hcalTPDepth7.push_back( 0 );}
-      
-	caloTPData_->hcalTPnDepths.push_back( nDepths );
+         if (nDepths > 7){
+         float Depth7 = (float) energy_depth[7];
+         caloTPData_->hcalTPDepth7.push_back( Depth7*DepthScale );
+         }
+         else{caloTPData_->hcalTPDepth7.push_back( 0 );}
+	
+
+        if (nDepths >2){
+		caloTPData_->hcalTPnDepths.push_back( nDepths );
+	}
+	else{caloTPData_->hcalTPnDepths.push_back( 0 );}
+                         
 	caloTPData_->hcalTPieta.push_back( ieta );
 	caloTPData_->hcalTPCaliphi.push_back( cal_iphi );
 	caloTPData_->hcalTPiphi.push_back( iphi );
@@ -285,7 +287,7 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
 	caloTPData_->hcalTPcompEt.push_back( compEt );
 	caloTPData_->hcalTPfineGrain.push_back( fineGrain );
 	caloTPData_->nHCALTP++;
-      }
+      }    
     }
   }
   else {
@@ -326,7 +328,7 @@ L1CaloTowerTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup
     }
 
   }
-  else {
+ else {
     edm::LogWarning("L1TNtuple") << "L1 Calo Towerss not found, branch will not be filled";
   }
 
