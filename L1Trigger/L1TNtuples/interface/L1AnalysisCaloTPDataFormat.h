@@ -27,6 +27,14 @@ namespace L1Analysis
       hcalTPcompEt.clear();
       hcalTPfineGrain.clear();
       nECALTP = 0;
+      hcalTPnDepths.clear();
+      hcalTPDepth1.clear();
+      hcalTPDepth2.clear();
+      hcalTPDepth3.clear();
+      hcalTPDepth4.clear();
+      hcalTPDepth5.clear();
+      hcalTPDepth6.clear();
+      hcalTPDepth7.clear();
       ecalTPieta.clear();
       ecalTPiphi.clear();
       ecalTPCaliphi.clear();
@@ -47,6 +55,15 @@ namespace L1Analysis
     std::vector<float> hcalTPet;
     std::vector<short> hcalTPcompEt;
     std::vector<short> hcalTPfineGrain;
+    std::vector<short> hcalTPnDepths;
+    std::vector<float> hcalTPDepth1;
+    std::vector<float> hcalTPDepth2;
+    std::vector<float> hcalTPDepth3;
+    std::vector<float> hcalTPDepth4;
+    std::vector<float> hcalTPDepth5;
+    std::vector<float> hcalTPDepth6;
+    std::vector<float> hcalTPDepth7;
+
 
     short nECALTP;
     std::vector<short> ecalTPieta;
